@@ -23,7 +23,7 @@ namespace Console_Project
                 string answer = Console.ReadLine();
                 switch (answer)
                 {case "1.1";
-                        ShowGroups(ref managerSevice); 
+                        GetDepartments(ref managerSevice); 
                     default:
                         break;
                 }
