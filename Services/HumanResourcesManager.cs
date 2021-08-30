@@ -10,7 +10,7 @@ namespace Console_Project.Services
     class HumanResourcesManager : IHumanResourcesManager
     {
         private Departments[] _departments;
-        public Departments()
+        public HumanResourcesManager()
         {
             _departments = new Departments[0];
             
@@ -19,16 +19,17 @@ namespace Console_Project.Services
 
         public void AddDepartment(string name)
         {
+            Departments departments = new Departments(name);
             foreach (Departments department in _departments)
             {
                 if (department.Name.ToLower() == name.ToLower())
                 {
-                    Console.WriteLine();
+                    Console.WriteLine($"{department.Name.ToLower()} adli departament movcuddur");
                     return;
                 }
                
             }
-            Departments departments = new Departments(Name);
+            
             Array.Resize(ref _departments, _departments.Length + 1);
             _departments[_departments.Length - 1] = departments;
         }
@@ -37,9 +38,9 @@ namespace Console_Project.Services
         {
             Departments[] departments = new Departments[0];
 
-            foreach (var departments in _departments)
+            foreach (var department in _departments)
             {
-                foreach (var dep in departments.AllDepartments)
+                foreach (var dep in departments.Departments)
                 {
                     Array.Resize(ref departments, departments.Length + 1);
                     departments[departments.Length - 1] = dep;
