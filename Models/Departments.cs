@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Console_Project.Models
 {
-    public class Departments
+    public class Department
     {
         public string Name;
         public int WorkerLimit;

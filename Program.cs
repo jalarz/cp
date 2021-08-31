@@ -1,5 +1,6 @@
 ﻿using System;
 using Console_Project.Services;
+using Console_Project.Interfaces;
 
 
 namespace Console_Project
@@ -8,12 +9,12 @@ namespace Console_Project
     {
         static void Main(string[] args)
         {
-            HumanResourcesManager managerSevice = new HumanResourcesManager();
+            HumanResourcesManager managerService = new HumanResourcesManager();
             do
             {
                 Console.WriteLine("1.1 Departameantlerin siyahisini gostermek");
-                Console.WriteLine("1.2 Departamenet yaratmaq ");
-                Console.WriteLine("1.3 Departmanetde deyisiklik etmek ");
+                Console.WriteLine("1.2 Departament yaratmaq ");
+                Console.WriteLine("1.3 Departatmentde deyisiklik etmek ");
                 Console.WriteLine("2.1 Iscilerin siyahisini gostermek");
                 Console.WriteLine("2.2 Departamentdeki iscilerin siyahisini gostermrek ");
                 Console.WriteLine("2.3 Isci elave etmek");
@@ -24,30 +25,31 @@ namespace Console_Project
                 switch (answer)
                 {
                     case "1.1":
-                        GetDepartments(ref managerSevice);
+                        GetDepartments(ref managerService);
+                        break;
 
                     case "1.2":
-                        AddDepartment(ref managerSevice);
-
+                        AddDepartment(ref managerService);
+                        break;
                     case "1.3":
-                        EditDepartment(ref managerSevice);
-
+                        EditDepartment(ref managerService);
+                        break;
                     case "2.1":
-                        ShowEmployees(ref managerSevice);
-
+                        ShowEmployees(ref managerService);
+                        break;
                     case "2.2":
-                        ShowDepEmployees(ref managerSevice);
-
+                        ShowDepEmployees(ref managerService);
+                        break;
                     case "2.3":
-                        AddEmployee(ref managerSevice);
-
+                        AddEmployee(ref managerService);
+                        break;
                     case "2.4":
-                        EditEmployee(ref managerSevice);
-
+                        EditEmployee(ref managerService);
+                        break;
                     case "2.5":
-                        RemoveEmployee(ref managerSevice);
+                        RemoveEmployee(ref managerSrevice);
+                        break;
 
-                
 
                     default:
                         Console.WriteLine("Tekrar secim edin!");
@@ -55,44 +57,66 @@ namespace Console_Project
                 }
 
             } while (true);
-            static void AddDepartment(ref HumanResourcesManager managerService);
-            {
-                Console.WriteLine("Department adini daxil edin");
-                string Name = Console.ReadLine();
-                Console.WriteLine("Worker Limit daxil edin:");
-                try
-                {
-                    int WorkerLimit = Convert.ToInt32(Console.ReadLine());
-                    if (WorkerLimit < 1)
-                    {
-                        Console.WriteLine("Limit 1-den boyuk olmalidir");
-                        return;
-                    }
-                }
-                catch (FormatException)
-                {
-                    Console.WriteLine("Zehmet olmasa reqem daxil edin!");
-                }
-                Console.WriteLine("Salary Limit daxil edin:");
-                try
-                {
-                    int SalaryLimit = Convert.ToInt32(Console.ReadLine());
-                    if (SalaryLimit < 250)
-                    {
-                        Console.WriteLine("Limit 250-den boyuk olmalidir");
-                        return;
-                    }
-                }
-                catch (FormatException)
-                {
-                    Console.WriteLine("Zehmet olmasa reqem daxil edin!");
-                }
-
-                managerSevice.AddDepartment(Name, WorkerLimit, SalaryLimit);
-
-
-            }
         }
-        
-    }
-}
+        static void AddDepartment(ref HumanResourcesManager managerService)
+        {
+            Console.WriteLine("Department adini daxil edin");
+            string Name = Console.ReadLine();
+            Console.WriteLine("Worker Limit daxil edin:");
+            try
+            {
+                int WorkerLimit = Convert.ToInt32(Console.ReadLine());
+                if (WorkerLimit < 1)
+                {
+                    Console.WriteLine("Limit 1-den boyuk olmalidir");
+                    return;
+                }
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Zehmet olmasa reqem daxil edin!");
+            }
+            Console.WriteLine("Salary Limit daxil edin:");
+            try
+            {
+                int SalaryLimit = Convert.ToInt32(Console.ReadLine());
+                if (SalaryLimit < 250)
+                {
+                    Console.WriteLine("Limit 250-den boyuk olmalidir");
+                    return;
+                }
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Zehmet olmasa reqem daxil edin!");
+            }
+
+            managerService.AddDepartment(Name, WorkerLimit, SalaryLimit);
+
+
+        }
+        static void EditDepartment(ref HumanResourcesManager managerService)
+        {
+            Console.WriteLine("Deyismek istediyiniz departamentin adini daxil edin:");
+            string OldDepName = Console.ReadLine();
+
+            if (managerService.FindDepartment(OldDepName) == null)
+            {
+                Console.WriteLine($"{OldDepName} adli departament movcud deyil!");
+                return;
+            }
+
+            Console.WriteLine("Qrupun yeni nomresini daxil edin:");
+            string NewDepName = Console.ReadLine();
+
+            if (managerService.FindDepartment(NewDepName) != null)
+            {
+                Console.WriteLine($"{NewDepName} adli departament movcuddur!");
+                return;
+            }
+
+            managerService.EditDepartment(OldDepName, NewDepName);
+        }
+
+    } }
+
