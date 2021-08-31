@@ -12,7 +12,7 @@ namespace Console_Project.Interfaces
     {
         Departments[] Departments { get; }
         public void AddDepartment();
-        public void GetDepartment();
+        public void GetDepartments();
         public void EditDepartment();
         public void AddEmployee();
         public void RemoveEmployee();
