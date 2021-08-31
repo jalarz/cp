@@ -36,18 +36,18 @@ namespace Console_Project.Services
         
         public Department [] GetDepartments()
         {
-            Department[] departments = new Department[0];
+            //Department[] departments = new Department[0];
 
-            foreach (var department in _departments)
-            {
-                foreach (var dep in departments.Departments)
-                {
-                    Array.Resize(ref departments, departments.Length + 1);
-                    departments[departments.Length - 1] = dep;
-                }
-            }
+            //foreach (var department in _departments)
+            //{
+            //    foreach (var dep in _departments)
+            //    {
+            //        Array.Resize(ref departments, departments.Length + 1);
+            //        departments[departments.Length - 1] = dep;
+            //    }
+            //}
 
-            return departments;
+            return Departments;
         }
         public void AddEmployee(string No, string FullName, string Position, int Salary, string Departments)
         {
@@ -75,8 +75,9 @@ namespace Console_Project.Services
                     return item;
 
                 }
-                return null;
+                
             }
+            return null;
         }
         public void EditDepartment(string OldDepName, string DepNewName)
         {
@@ -99,7 +100,7 @@ namespace Console_Project.Services
         }
         public Employee[] ShowEmployees()
         {
-            Employee employees = new Employee[0];
+            Employee[] employees = new Employee[0];
             foreach (var department in _departments)
             {
                 foreach (var eml in department.Employees)
@@ -111,7 +112,14 @@ namespace Console_Project.Services
 
             return employees;
         }
+        public void RemoveEmployee()
+        {
 
+        }
+        public void EditEmployee()
+        {
+
+        }
     }
     }
 

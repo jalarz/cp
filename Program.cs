@@ -47,7 +47,7 @@ namespace Console_Project
                         EditEmployee(ref managerService);
                         break;
                     case "2.5":
-                        RemoveEmployee(ref managerSrevice);
+                        RemoveEmployee(ref managerService);
                         break;
 
 

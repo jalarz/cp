@@ -24,4 +24,4 @@ namespace Console_Project.Models
         }
 
     }
-}
+
