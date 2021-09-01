@@ -90,8 +90,8 @@ namespace Console_Project
             {
                 Console.WriteLine("Zehmet olmasa reqem daxil edin!");
             }
-
             managerService.AddDepartment(Name, WorkerLimit, SalaryLimit);
+
 
 
         }
@@ -116,6 +116,21 @@ namespace Console_Project
             }
 
             managerService.EditDepartment(OldDepName, NewDepName);
+        }
+        static void GetDepartments(ref HumanResourcesManager managerService)
+        {
+            if (managerService.Departments.Length>0)
+            {
+                Console.WriteLine("Departamentler:");
+                foreach (var item in managerService.Departments)
+                {
+                    Console.WriteLine($"Name: {item.Name} - Worker Limit: {item.WorkerLimit} - Salary Limit: {item.SalaryLimit} - Employees: {item.Employees} - Average Salary: {item.AvSalary}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Sistemde hec bir departament yoxdur");
+            }
         }
 
     } }

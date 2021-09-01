@@ -112,6 +112,33 @@ namespace Console_Project.Services
 
             return employees;
         }
+        public Employee[] SearchEmployee(string N)
+        {
+
+            Employee[] employees = new Employee[0];
+            foreach (var department in _departments)
+            {
+                foreach (var eml in department.Employees)
+                {
+                    if (eml.Fullname.Contains(N))
+                    {
+                        Array.Resize(ref employees, employees.Length + 1);
+                        employees[employees.Length - 1] = eml;
+                    }
+                }
+            }
+        }
+        public Employee[] GetEmployeebyDepartment(string depname)
+        {
+            Department department = FindDepartment(depname);
+            if (department) == null;
+            {
+                Console.WriteLine($"{department} adli department movcud deyil");
+                return null;
+            }
+
+            return department.Employees;
+        }
         public void RemoveEmployee()
         {
 

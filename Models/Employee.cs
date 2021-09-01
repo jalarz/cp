@@ -12,7 +12,7 @@ namespace Console_Project.Models
             Counter++;
             No = str;
             str.Substring(0, 2);
-
+            Console.WriteLine(str.ToUpper());
             
         }
         public string No;

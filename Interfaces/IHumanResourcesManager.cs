@@ -19,6 +19,7 @@ namespace Console_Project.Interfaces
 
         public void EditEmployee();
         public Employee[] ShowEmployees();
+        public Employee[] GetEmployeebyDepartment(string depname);
 
     }
 }
