@@ -40,9 +40,9 @@ namespace Console_Project
                     case "2.2":
                         ShowDepEmployees(ref managerService);
                         break;
-                    case "2.3":
-                        AddEmployee(ref managerService);
-                        break;
+                    //case "2.3":
+                    //    AddEmployee(ref managerService);
+                    //    break;
                     case "2.4":
                         EditEmployee(ref managerService);
                         break;
@@ -62,6 +62,15 @@ namespace Console_Project
         {
             Console.WriteLine("Department adini daxil edin");
             string Name = Console.ReadLine();
+
+            do
+            {
+                Console.WriteLine("Daxil etdiyinz ad 2 herfden chox olmalidir");
+
+                 Name = Console.ReadLine();
+
+            } while (Name.Length < 2);
+            
             Console.WriteLine("Worker Limit daxil edin:");
             try
             {
@@ -80,11 +89,10 @@ namespace Console_Project
             try
             {
                 int SalaryLimit = Convert.ToInt32(Console.ReadLine());
-                if (SalaryLimit < 250)
+                do
                 {
-                    Console.WriteLine("Limit 250-den boyuk olmalidir");
-                    return;
-                }
+                    SalaryLimit += 250;
+                } while ();
             }
             catch (FormatException)
             {
@@ -117,6 +125,13 @@ namespace Console_Project
 
             managerService.EditDepartment(OldDepName, NewDepName);
         }
+        static void ShowEmployees(ref HumanResourcesManager managerService)
+        {
+            foreach (var item in managerService.GetAllEmployees())
+            {
+                Console.WriteLine($"No: {item.No} - Ad Soyad: - {item.Fullname} - Position: {item.Position1} - Salary: {item.Salary1} - Department: {item.Departments}");
+            }
+        }
         static void GetDepartments(ref HumanResourcesManager managerService)
         {
             if (managerService.Departments.Length>0)
@@ -124,7 +139,7 @@ namespace Console_Project
                 Console.WriteLine("Departamentler:");
                 foreach (var item in managerService.Departments)
                 {
-                    Console.WriteLine($"Name: {item.Name} - Worker Limit: {item.WorkerLimit} - Salary Limit: {item.SalaryLimit} - Employees: {item.Employees} - Average Salary: {item.AvSalary}");
+                    Console.WriteLine($"Name: {item.Name} - Worker Limit: {item.WorkerLimit1} - Salary Limit: {item.SalaryLimit} - Employees: {item.Employees} - Average Salary: {item.CalcSalaryAverage()}");
                 }
             }
             else
@@ -132,6 +147,45 @@ namespace Console_Project
                 Console.WriteLine("Sistemde hec bir departament yoxdur");
             }
         }
+       
+        static void RemoveEmployee(ref HumanResourcesManager managerService)
+        {
+            Console.WriteLine("Iscini nomresini daxil edin:");
+            string No = Console.ReadLine();
+            Console.WriteLine("Iscinin adini daxil edin");
+            string FullName = Console.ReadLine();
+        }
+        static void EditEmployee(ref HumanResourcesManager managerService)
+        {
+            Console.WriteLine("Deyismek istediyiniz iscinin nomresini daxil edin");
+            string No = Console.ReadLine();
+            if (managerService.SearchEmployee(No) == null)
+            {
+                Console.WriteLine($"{No} adli departament movcud deyil!");
+                return;
+            }
 
+            Console.WriteLine("Ischinin yeni position daxil edin:");
+            string NewPosition = Console.ReadLine();
+
+            Console.WriteLine("Iscinin yeni salary daxil edin");
+            int NewSalary = Convert.ToInt32(Console.ReadLine());
+            managerService.EditEmployee(No, NewPosition, NewSalary);
+        }
+        static void ShowDepEmployees(ref HumanResourcesManager managerService)
+        {
+            Console.WriteLine("Departament adini daxil edin");
+            string department = Console.ReadLine();
+            if (managerService.FindDepartment(department) == null)
+            {
+                Console.WriteLine($"{department} adli departament movcud deyil");
+                return;
+            }
+            foreach (var item in managerService.GetEmployeebyDepartment(department))
+            {
+                Console.WriteLine($"No: {item.No} - Ad Soyad: - {item.Fullname} - Position: {item.Position1} - Salary: {item.Salary1} - Department: {item.Departments}");
+           
+            }
+        }
     } }
 

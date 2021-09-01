@@ -10,18 +10,46 @@ namespace Console_Project.Models
         public Employee(string str, string Fullname, string Position, int Salary, string Departments)
         {
             Counter++;
-            No = str;
-            str.Substring(0, 2);
-            Console.WriteLine(str.ToUpper());
-            
-        }
-        public string No;
-        public string Fullname;
-        public string Position;
-        public int Salary;
-        public string Departments;
-        
+            No = Departments.Substring(0, 2).ToUpper() + Counter;
         }
 
+
+        public string No;
+        public string Fullname;
+        private string Position;
+        private int Salary;
+        public string Departments;
+
+        public string Position1
+        {
+            get => Position;
+            set
+            {
+                if (Position.Length < 2)
+                {
+                    Console.WriteLine("Position adi 2 herfden boyuk olmalidir");
+                    return;
+                }
+                Position = value;
+            }
+        }
+        public int Salary1
+        {
+            get => Salary;
+            set
+            {
+                if (Salary < 250)
+                {
+                    Console.WriteLine("Salary deyeri 250den yuksek olmalidir");
+                }
+                Salary = value;
+            }
+
+
+
+
+        }
     }
+}
+
 

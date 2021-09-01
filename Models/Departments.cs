@@ -8,22 +8,42 @@ namespace Console_Project.Models
     {
         
         public string Name;
-        public int WorkerLimit;
-        public int SalaryLimit;
+        private int WorkerLimit;
+        private int SalaryLimit;
         public Employee[] Employees;
+
+        public int WorkerLimit1
+        { get => WorkerLimit; 
+            set
+            {
+                if (WorkerLimit < 1)
+                {
+                    Console.WriteLine(" ");
+                }
+            }
+                WorkerLimit = value; }
+
+        public Department(string name, int workerLimit, int salaryLimit)
+        {
+            Name = name;
+            WorkerLimit1 = workerLimit;
+            SalaryLimit = salaryLimit;
+            Employees = new Employee[0];
+        }
+
         public void AddEmployee(Employee employee)
         {
             Array.Resize(ref Employees, Employees.Length + 1);
             Employees[Employees.Length - 1] = employee;
         }
-        static double CalcSalaryAverage(int[] Salary)
+        public double CalcSalaryAverage()
         {
             double result = 0;
-            foreach (var item in Salary)
+            foreach (var item in Employees)
             {
-                result += item;
+                result += item.Salary1;
             }
-            return result / Salary.Length;
+            return result / Employees.Length;
         }
     }
 
