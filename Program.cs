@@ -174,7 +174,7 @@ namespace Console_Project
             Console.WriteLine("Ischinin yeni position daxil edin:");
             string NewPosition = Console.ReadLine();
 
-            Console.WriteLine("Iscinin yeni salary daxil edin");
+            Console.WriteLine("Iscinin yeni salary daxil edin:");
             string typeNewSalary = Console.ReadLine();
             int NewSalary;
             while (!int.TryParse(typeNewSalary, out NewSalary))
@@ -219,7 +219,7 @@ namespace Console_Project
                 goto tryagain1;
                 throw;
             }
-            Console.Write("Departament adini daxil edin");
+            Console.Write("Departament adini daxil edin:");
             string Departments = Console.ReadLine();
             managerService.AddEmployee(Fullname, Position, Salary, Departments);
         }

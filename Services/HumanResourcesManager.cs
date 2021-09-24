@@ -189,7 +189,7 @@ namespace Console_Project.Services
                 {
                     if (employee != null)
                     {
-                        Array.Resize(ref employees, employees.Length - 1);
+                        Array.Resize(ref employees, employees.Length + 1);
                         employees[employees.Length - 1] = employee;
                     }
                 }

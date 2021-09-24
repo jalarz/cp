@@ -11,12 +11,12 @@ namespace Console_Project.Models
         {
             Counter++;
             No = Departments.Substring(0, 2).ToUpper() + Counter;
-            {
+            
                 Fullname = fullname;
                 Position = position;
                 Salary = salary;
                 Departments = departments;
-            }
+            
         }
 
         public Employee(string fullName, string position, int salary, string departments)
