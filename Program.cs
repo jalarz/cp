@@ -40,9 +40,9 @@ namespace Console_Project
                     case "2.2":
                         ShowDepEmployees(ref managerService);
                         break;
-                    //case "2.3":
-                    //    AddEmployee(ref managerService);
-                    //    break;
+                    case "2.3":
+                        AddEmployee(ref managerService);
+                        break;
                     case "2.4":
                         EditEmployee(ref managerService);
                         break;
@@ -63,18 +63,19 @@ namespace Console_Project
             Console.WriteLine("Department adini daxil edin");
             string Name = Console.ReadLine();
 
-            do
+           
+
+            if (Name.Length < 2)
             {
                 Console.WriteLine("Daxil etdiyinz ad 2 herfden chox olmalidir");
-
-                 Name = Console.ReadLine();
-
-            } while (Name.Length < 2);
-            
+                return;
+            }
+        tryagain1:
             Console.WriteLine("Worker Limit daxil edin:");
+            int WorkerLimit = 0;
             try
             {
-                int WorkerLimit = Convert.ToInt32(Console.ReadLine());
+                WorkerLimit = Convert.ToInt32(Console.ReadLine());
                 if (WorkerLimit < 1)
                 {
                     Console.WriteLine("Limit 1-den boyuk olmalidir");
@@ -84,19 +85,24 @@ namespace Console_Project
             catch (FormatException)
             {
                 Console.WriteLine("Zehmet olmasa reqem daxil edin!");
+                
+                goto tryagain1;
+                throw;
             }
+        tryagain2:
             Console.WriteLine("Salary Limit daxil edin:");
+            int SalaryLimit = 0;
             try
             {
-                int SalaryLimit = Convert.ToInt32(Console.ReadLine());
-                do
-                {
-                    SalaryLimit += 250;
-                } while ();
+                SalaryLimit = Convert.ToInt32(Console.ReadLine());
+               
             }
             catch (FormatException)
             {
                 Console.WriteLine("Zehmet olmasa reqem daxil edin!");
+                
+                goto tryagain2;
+                throw;
             }
             managerService.AddDepartment(Name, WorkerLimit, SalaryLimit);
 
@@ -114,7 +120,7 @@ namespace Console_Project
                 return;
             }
 
-            Console.WriteLine("Qrupun yeni nomresini daxil edin:");
+            Console.WriteLine("Departamentin yeni adini daxil edin:");
             string NewDepName = Console.ReadLine();
 
             if (managerService.FindDepartment(NewDepName) != null)
@@ -129,7 +135,7 @@ namespace Console_Project
         {
             foreach (var item in managerService.GetAllEmployees())
             {
-                Console.WriteLine($"No: {item.No} - Ad Soyad: - {item.Fullname} - Position: {item.Position1} - Salary: {item.Salary1} - Department: {item.Departments}");
+                Console.WriteLine($"No: {item.No} - Ad Soyad: - {item.Fullname} - Position: {item.Position} - Salary: {item.Salary} - Department: {item.Departments}");
             }
         }
         static void GetDepartments(ref HumanResourcesManager managerService)
@@ -139,7 +145,7 @@ namespace Console_Project
                 Console.WriteLine("Departamentler:");
                 foreach (var item in managerService.Departments)
                 {
-                    Console.WriteLine($"Name: {item.Name} - Worker Limit: {item.WorkerLimit1} - Salary Limit: {item.SalaryLimit} - Employees: {item.Employees} - Average Salary: {item.CalcSalaryAverage()}");
+                    Console.WriteLine($"Name: {item.Name} - Worker Limit: {item.WorkerLimit} - Salary Limit: {item.SalaryLimit} - Employees: {item.Employees} - Average Salary: {item.CalcSalaryAverage()}");
                 }
             }
             else
@@ -169,7 +175,13 @@ namespace Console_Project
             string NewPosition = Console.ReadLine();
 
             Console.WriteLine("Iscinin yeni salary daxil edin");
-            int NewSalary = Convert.ToInt32(Console.ReadLine());
+            string typeNewSalary = Console.ReadLine();
+            int NewSalary;
+            while (!int.TryParse(typeNewSalary, out NewSalary))
+            {
+                Console.WriteLine("Yeniden daxil edin");
+                typeNewSalary = Console.ReadLine();
+            }
             managerService.EditEmployee(No, NewPosition, NewSalary);
         }
         static void ShowDepEmployees(ref HumanResourcesManager managerService)
@@ -183,9 +195,33 @@ namespace Console_Project
             }
             foreach (var item in managerService.GetEmployeebyDepartment(department))
             {
-                Console.WriteLine($"No: {item.No} - Ad Soyad: - {item.Fullname} - Position: {item.Position1} - Salary: {item.Salary1} - Department: {item.Departments}");
+                Console.WriteLine($"No: {item.No} - Ad Soyad: - {item.Fullname} - Position: {item.Position} - Salary: {item.Salary} - Department: {item.Departments}");
            
             }
+        }
+        static void AddEmployee(ref HumanResourcesManager managerService)
+        {
+            Console.Write("Iscinin adi:");
+            string Fullname = Console.ReadLine();
+            Console.Write("Position daxil edin:");
+            string Position = Console.ReadLine();
+            Console.Write("Salary daxil edin:");
+            int Salary = 0;
+            tryagain1:
+            try
+            {
+                Salary = Convert.ToInt32(Console.ReadLine());
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Zehmet olmasa duzgun format daxil edin");
+               
+                goto tryagain1;
+                throw;
+            }
+            Console.Write("Departament adini daxil edin");
+            string Departments = Console.ReadLine();
+            managerService.AddEmployee(Fullname, Position, Salary, Departments);
         }
     } }
 

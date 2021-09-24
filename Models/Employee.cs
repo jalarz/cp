@@ -7,42 +7,56 @@ namespace Console_Project.Models
     class Employee
     {
         public static int Counter = 1000;
-        public Employee(string str, string Fullname, string Position, int Salary, string Departments)
+        public Employee(string str, string fullname, string position, int salary, string departments)
         {
             Counter++;
             No = Departments.Substring(0, 2).ToUpper() + Counter;
+            {
+                Fullname = fullname;
+                Position = position;
+                Salary = salary;
+                Departments = departments;
+            }
         }
 
+        public Employee(string fullName, string position, int salary, string departments)
+        {
+            Fullname = fullName;
+            Position = position;
+            Salary = salary;
+            Departments = departments;
+        }
 
         public string No;
         public string Fullname;
-        private string Position;
-        private int Salary;
+        private string _Position;
+        private int _Salary;
         public string Departments;
 
-        public string Position1
+        public string Position
         {
-            get => Position;
+            get => _Position;
             set
             {
-                if (Position.Length < 2)
+                if (value.Length < 2)
                 {
                     Console.WriteLine("Position adi 2 herfden boyuk olmalidir");
                     return;
                 }
-                Position = value;
+                _Position = value;
             }
         }
-        public int Salary1
+        public int Salary
         {
-            get => Salary;
+            get => _Salary;
             set
             {
-                if (Salary < 250)
+                if (value < 250)
                 {
                     Console.WriteLine("Salary deyeri 250den yuksek olmalidir");
+                    return;
                 }
-                Salary = value;
+                _Salary = value;
             }
 
 

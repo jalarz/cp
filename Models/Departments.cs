@@ -8,25 +8,33 @@ namespace Console_Project.Models
     {
         
         public string Name;
-        private int WorkerLimit;
-        private int SalaryLimit;
+        private int _WorkerLimit;
+        private int _SalaryLimit;
         public Employee[] Employees;
 
-        public int WorkerLimit1
-        { get => WorkerLimit; 
+        public int WorkerLimit
+        { get => _WorkerLimit; 
             set
             {
-                if (WorkerLimit < 1)
-                {
-                    Console.WriteLine(" ");
-                }
+               
+                _WorkerLimit = value;
             }
-                WorkerLimit = value; }
+        }
+        public int SalaryLimit
+        {
+            get => _SalaryLimit;
+            set
+            {
+                
+               
+                _SalaryLimit = value;
+            }
+        }
 
         public Department(string name, int workerLimit, int salaryLimit)
         {
             Name = name;
-            WorkerLimit1 = workerLimit;
+            WorkerLimit = workerLimit;
             SalaryLimit = salaryLimit;
             Employees = new Employee[0];
         }
@@ -41,7 +49,7 @@ namespace Console_Project.Models
             double result = 0;
             foreach (var item in Employees)
             {
-                result += item.Salary1;
+                result += item.Salary;
             }
             return result / Employees.Length;
         }
